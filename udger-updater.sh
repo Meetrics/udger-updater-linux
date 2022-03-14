@@ -80,7 +80,7 @@ echo "Base URL: $SNAPSHOT_URL"
 ## download remote version file
 if [ "x$CURL" != "x" ]; then
     echo "Updating via CURL"
-    $CURL -sSfR -o "$VERSION_FILE_TMP" "$VERSION_URL"
+    $CURL -ksSfR -o "$VERSION_FILE_TMP" "$VERSION_URL"
     if [ $? -ne 0 ]; then { echo "CURL Failed, aborting: $VERSION_URL" ; exit 1; } fi
 
 elif [ "x$WGET" != "x" ]; then
@@ -101,8 +101,8 @@ start_download(){
     FILENAME_SHA1="$DOWNLOAD_DIR/$DATA_FILE_SHA1.$VERSION"
 
     if [ "x$CURL" != "x" ]; then
-        $CURL -sSfR -o "$FILENAME" "$SNAPSHOT_URL/$DATA_FILE"
-        $CURL -sSfR -o "$FILENAME_SHA1" "$SNAPSHOT_URL/$DATA_FILE_SHA1"
+        $CURL -ksSfR -o "$FILENAME" "$SNAPSHOT_URL/$DATA_FILE"
+        $CURL -ksSfR -o "$FILENAME_SHA1" "$SNAPSHOT_URL/$DATA_FILE_SHA1"
     else
         $WGET -N -O "$FILENAME" "$SNAPSHOT_URL/$DATA_FILE"
         $WGET -N -O "$FILENAME_SHA1" "$SNAPSHOT_URL/$DATA_FILE_SHA1"
